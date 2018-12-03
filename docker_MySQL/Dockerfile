@@ -1,0 +1,9 @@
+FROM mysql:5.7.21
+
+ENV MYSQL_DATABASE=batchdb
+ENV MYSQL_TCP_PORT=3306
+
+ENV MYSQL_ROOT_PASSWORD=batchsample
+
+ENV MYSQL_USER=batchsample
+ENV MYSQL_PASSWORD=batchsample
