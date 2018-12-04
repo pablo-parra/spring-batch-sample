@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import pab.par.dom.springbatchsample.service.data.DownloadInfo;
+import pab.par.dom.springbatchsample.service.data.dto.DownloadInfoDto;
 
 /**
  * REST controller to start the batch job
@@ -44,7 +44,7 @@ public class JobLauncherController {
    * @throws JobExecutionAlreadyRunningException
    */
   @RequestMapping(value = "/startjob/{name}", method = RequestMethod.GET)
-  public ResponseEntity<DownloadInfo> startJob(@PathVariable("name") String name)
+  public ResponseEntity<DownloadInfoDto> startJob(@PathVariable("name") String name)
       throws JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException,
       JobParametersInvalidException {
 
@@ -52,7 +52,7 @@ public class JobLauncherController {
     // Job job = ctx.getBean("addNewPodcastJob", Job.class);
 
     this.jobLauncher.run(this.job, new JobParameters());
-    return new ResponseEntity<>(new DownloadInfo("http://asdfasdf", "300s"), HttpStatus.ACCEPTED);
+    return new ResponseEntity<>(new DownloadInfoDto("http://asdfasdf", "300s"), HttpStatus.ACCEPTED);
   }
 
 }

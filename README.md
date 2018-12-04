@@ -15,6 +15,7 @@ Sample project with a simple Spring Batch implementation
 ## Resources
 
 * https://docs.spring.io/spring-batch/4.0.x/reference/html/
+* https://www.toptal.com/spring/spring-batch-tutorial
 * https://spring.io/projects/spring-batch
 * https://docs.spring.io/spring-boot/docs/current/reference/html/howto-batch-applications.html
 * https://www.baeldung.com/introduction-to-spring-batch

@@ -1,10 +1,10 @@
-package pab.par.dom.springbatchsample.service.data;
+package pab.par.dom.springbatchsample.service.data.dto;
 
 /**
  * Class to wrap the response info
  *
  */
-public class DownloadInfo {
+public class DownloadInfoDto {
 
   private String downloadURL;
 
@@ -14,7 +14,7 @@ public class DownloadInfo {
    *
    * The constructor.
    */
-  public DownloadInfo() {
+  public DownloadInfoDto() {
 
   }
 
@@ -24,7 +24,7 @@ public class DownloadInfo {
    * @param downloadURL the downloadURL value
    * @param ETA the ETA value
    */
-  public DownloadInfo(String downloadURL, String ETA) {
+  public DownloadInfoDto(String downloadURL, String ETA) {
 
     this.downloadURL = downloadURL;
     this.ETA = ETA;
