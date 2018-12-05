@@ -1,4 +1,4 @@
-package pab.par.dom.springbatchsample.service.data.entity;
+package pab.par.dom.springbatchsample.studentmanagement.dataaccess.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -6,40 +6,18 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
- * Entity to map 'student' table
+ * Enabled Student Entity
  *
  */
 @Entity
-@Table(name = "student")
-public class Student {
+@Table(name = "enabled_student")
+public class EnabledStudent {
 
   @Id
-  private Integer id;
-
-  @NotNull
   private String email;
 
   @NotNull
   private String name;
-
-  @NotNull
-  private Boolean enabled;
-
-  /**
-   * @return id
-   */
-  public Integer getId() {
-
-    return this.id;
-  }
-
-  /**
-   * @param id new value of {@link #getId}.
-   */
-  public void setId(Integer id) {
-
-    this.id = id;
-  }
 
   /**
    * @return email
@@ -71,22 +49,6 @@ public class Student {
   public void setName(String name) {
 
     this.name = name;
-  }
-
-  /**
-   * @return enabled
-   */
-  public Boolean getEnabled() {
-
-    return this.enabled;
-  }
-
-  /**
-   * @param enabled new value of {@link #getEnabled}.
-   */
-  public void setEnabled(Boolean enabled) {
-
-    this.enabled = enabled;
   }
 
 }

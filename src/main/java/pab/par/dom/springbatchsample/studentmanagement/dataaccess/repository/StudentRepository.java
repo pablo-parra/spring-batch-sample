@@ -1,10 +1,10 @@
-package pab.par.dom.springbatchsample.service.data.repository;
+package pab.par.dom.springbatchsample.studentmanagement.dataaccess.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import pab.par.dom.springbatchsample.service.data.entity.Student;
+import pab.par.dom.springbatchsample.studentmanagement.dataaccess.entity.Student;
 
 /**
  * Student Jpa Repository

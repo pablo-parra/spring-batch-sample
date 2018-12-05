@@ -1,4 +1,4 @@
-package pab.par.dom.springbatchsample.service.data.dto;
+package pab.par.dom.springbatchsample.studentmanagement.dataaccess.dto;
 
 /**
  * Data Transfer Object for Student Entity

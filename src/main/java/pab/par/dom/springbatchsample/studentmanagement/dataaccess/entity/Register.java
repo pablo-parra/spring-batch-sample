@@ -1,4 +1,4 @@
-package pab.par.dom.springbatchsample.service.data.entity;
+package pab.par.dom.springbatchsample.studentmanagement.dataaccess.entity;
 
 import java.sql.Timestamp;
 

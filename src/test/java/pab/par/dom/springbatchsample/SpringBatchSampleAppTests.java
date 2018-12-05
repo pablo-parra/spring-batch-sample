@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -24,14 +25,17 @@ import org.springframework.web.context.WebApplicationContext;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import pab.par.dom.springbatchsample.service.data.dto.DownloadInfoDto;
-import pab.par.dom.springbatchsample.service.data.entity.EnabledStudent;
-import pab.par.dom.springbatchsample.service.logic.api.Studentmanagement;
+import pab.par.dom.springbatchsample.studentmanagement.dataaccess.dto.JobInfo;
+import pab.par.dom.springbatchsample.studentmanagement.dataaccess.entity.EnabledStudent;
+import pab.par.dom.springbatchsample.studentmanagement.logic.api.Studentmanagement;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = SpringBatchSampleApplication.class)
+@ContextConfiguration(classes = SpringBatchSampleApp.class)
 @SpringBootTest
-public class SpringBatchSampleApplicationTests {
+public class SpringBatchSampleAppTests {
+
+  @Value("${heavy-job-simulation-time-sleep}")
+  private int heavyJobSimulationTimeSleep;
 
   @Autowired
   private WebApplicationContext context;
@@ -44,6 +48,8 @@ public class SpringBatchSampleApplicationTests {
   private Gson gson = new GsonBuilder().create();
 
   private String startJobURL = "/startjob";
+
+  private String startJobAsyncURL = "/startjobasync";
 
   @Before
   public void initialize() {
@@ -62,13 +68,36 @@ public class SpringBatchSampleApplicationTests {
 
     MvcResult result = httpGet(this.startJobURL, new LinkedMultiValueMap<>()).andExpect(status().isAccepted())
         .andReturn();
-    DownloadInfoDto response = this.gson.fromJson(result.getResponse().getContentAsString(), DownloadInfoDto.class);
+    JobInfo response = this.gson.fromJson(result.getResponse().getContentAsString(), JobInfo.class);
 
     assertThat(response).isNotNull();
 
     List<EnabledStudent> enabledStudentsAfter = this.studentmanagement.getAllEnabledStudents();
 
-    assertThat(enabledStudentsAfter.size()).isEqualTo(21);
+    assertThat(enabledStudentsAfter.size()).isEqualTo(this.studentmanagement.getAllStudentsByEnabledStatus().size());
+  }
+
+  @Test
+  public void myJobTestAsync() throws Exception {
+
+    List<EnabledStudent> enabledStudentsBefore = this.studentmanagement.getAllEnabledStudents();
+
+    assertThat(enabledStudentsBefore.size()).isEqualTo(0);
+
+    MvcResult result = httpGet(this.startJobAsyncURL, new LinkedMultiValueMap<>()).andExpect(status().isAccepted())
+        .andReturn();
+    JobInfo response = this.gson.fromJson(result.getResponse().getContentAsString(), JobInfo.class);
+
+    assertThat(response).isNotNull();
+
+    // to allow the heave process simulation to finish before testing the results the thread is configured to sleep
+    // double of the time expected to finish the process.
+    // Is not the best solution but for the PoC purposes it does the trick.
+    Thread.sleep(this.heavyJobSimulationTimeSleep * 2);
+
+    List<EnabledStudent> enabledStudentsAfter = this.studentmanagement.getAllEnabledStudents();
+
+    assertThat(enabledStudentsAfter.size()).isEqualTo(this.studentmanagement.getAllStudentsByEnabledStatus().size());
   }
 
   private ResultActions httpGet(String url, MultiValueMap<String, String> params) throws Exception {

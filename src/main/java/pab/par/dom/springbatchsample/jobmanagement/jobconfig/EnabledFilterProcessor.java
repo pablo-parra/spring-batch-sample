@@ -1,4 +1,4 @@
-package pab.par.dom.springbatchsample.config;
+package pab.par.dom.springbatchsample.jobmanagement.jobconfig;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +7,7 @@ import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.item.ItemProcessor;
 
-import pab.par.dom.springbatchsample.service.data.entity.Student;
+import pab.par.dom.springbatchsample.studentmanagement.dataaccess.entity.Student;
 
 /**
  * Student Enabled Filter Processor

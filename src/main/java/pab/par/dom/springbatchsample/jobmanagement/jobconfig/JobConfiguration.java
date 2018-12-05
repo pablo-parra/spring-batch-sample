@@ -1,4 +1,4 @@
-package pab.par.dom.springbatchsample.config;
+package pab.par.dom.springbatchsample.jobmanagement.jobconfig;
 
 import java.util.Arrays;
 
@@ -18,9 +18,9 @@ import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.scheduling.annotation.EnableAsync;
 
-import pab.par.dom.springbatchsample.service.data.entity.Student;
+import pab.par.dom.springbatchsample.studentmanagement.dataaccess.entity.Student;
 
 /**
  * Basic Job
@@ -28,7 +28,7 @@ import pab.par.dom.springbatchsample.service.data.entity.Student;
  */
 @Configuration
 @EnableBatchProcessing
-@EnableTransactionManagement
+@EnableAsync
 public class JobConfiguration {
 
   private static final Logger log = LoggerFactory.getLogger(JobConfiguration.class);

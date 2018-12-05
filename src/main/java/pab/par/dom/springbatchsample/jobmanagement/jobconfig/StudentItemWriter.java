@@ -1,4 +1,4 @@
-package pab.par.dom.springbatchsample.config;
+package pab.par.dom.springbatchsample.jobmanagement.jobconfig;
 
 import java.util.List;
 
@@ -13,9 +13,9 @@ import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import pab.par.dom.springbatchsample.service.data.entity.EnabledStudent;
-import pab.par.dom.springbatchsample.service.data.entity.Student;
-import pab.par.dom.springbatchsample.service.data.repository.EnabledStudentRepository;
+import pab.par.dom.springbatchsample.studentmanagement.dataaccess.entity.EnabledStudent;
+import pab.par.dom.springbatchsample.studentmanagement.dataaccess.entity.Student;
+import pab.par.dom.springbatchsample.studentmanagement.dataaccess.repository.EnabledStudentRepository;
 
 /**
  * Student Item Writer

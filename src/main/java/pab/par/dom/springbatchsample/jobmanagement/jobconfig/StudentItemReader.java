@@ -1,4 +1,4 @@
-package pab.par.dom.springbatchsample.config;
+package pab.par.dom.springbatchsample.jobmanagement.jobconfig;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import org.springframework.batch.item.UnexpectedInputException;
 import org.springframework.batch.item.support.IteratorItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import pab.par.dom.springbatchsample.service.data.entity.Student;
-import pab.par.dom.springbatchsample.service.logic.api.Studentmanagement;
+import pab.par.dom.springbatchsample.studentmanagement.dataaccess.entity.Student;
+import pab.par.dom.springbatchsample.studentmanagement.logic.api.Studentmanagement;
 
 /**
  * Student Reader
