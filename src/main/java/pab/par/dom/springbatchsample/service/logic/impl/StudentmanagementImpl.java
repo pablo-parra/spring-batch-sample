@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import pab.par.dom.springbatchsample.service.data.entity.Register;
 import pab.par.dom.springbatchsample.service.data.entity.Student;
@@ -19,7 +18,7 @@ import pab.par.dom.springbatchsample.service.logic.api.Studentmanagement;
  *
  */
 @Service
-@Transactional
+// @Transactional
 public class StudentmanagementImpl implements Studentmanagement {
 
   @Autowired
@@ -35,7 +34,7 @@ public class StudentmanagementImpl implements Studentmanagement {
     Register record = new Register();
     record.setJobDate(new Timestamp(new Date().getTime()));
     record.setEnabledStudents(enabledStudents.toString());
-    this.registerRepository.save(record);
+    this.registerRepository.saveAndFlush(record);
 
   }
 
