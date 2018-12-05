@@ -2,6 +2,7 @@ package pab.par.dom.springbatchsample.service.logic.api;
 
 import java.util.List;
 
+import pab.par.dom.springbatchsample.service.data.entity.EnabledStudent;
 import pab.par.dom.springbatchsample.service.data.entity.Student;
 
 /**
@@ -12,8 +13,10 @@ public interface Studentmanagement {
 
   void createRegistration();
 
-  List<Student> getEnabledStudents();
-
   List<Student> getAll();
+
+  List<EnabledStudent> getAllEnabledStudents();
+
+  void clearEnabledStudents();
 
 }

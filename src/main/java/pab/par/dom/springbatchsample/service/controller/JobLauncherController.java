@@ -44,13 +44,28 @@ public class JobLauncherController {
    * @throws JobExecutionAlreadyRunningException
    */
   @RequestMapping(value = "/startjob/{name}", method = RequestMethod.GET)
-  public ResponseEntity<DownloadInfoDto> startJob(@PathVariable("name") String name)
+  public ResponseEntity<DownloadInfoDto> startJobByName(@PathVariable("name") String name)
       throws JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException,
       JobParametersInvalidException {
 
     log.info("Name: " + name);
 
     // this.jobLauncher.run(this.job, new JobParameters());
+    this.jobLauncher.run(this.job, new JobParametersBuilder().addLong("unique", System.nanoTime()).toJobParameters());
+    return new ResponseEntity<>(new DownloadInfoDto("http://asdfasdf", "300s"), HttpStatus.ACCEPTED);
+  }
+
+  /**
+   * @return
+   * @throws JobExecutionAlreadyRunningException
+   * @throws JobRestartException
+   * @throws JobInstanceAlreadyCompleteException
+   * @throws JobParametersInvalidException
+   */
+  @RequestMapping(value = "/startjob", method = RequestMethod.GET)
+  public ResponseEntity<DownloadInfoDto> startJob() throws JobExecutionAlreadyRunningException, JobRestartException,
+      JobInstanceAlreadyCompleteException, JobParametersInvalidException {
+
     this.jobLauncher.run(this.job, new JobParametersBuilder().addLong("unique", System.nanoTime()).toJobParameters());
     return new ResponseEntity<>(new DownloadInfoDto("http://asdfasdf", "300s"), HttpStatus.ACCEPTED);
   }

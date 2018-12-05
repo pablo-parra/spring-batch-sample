@@ -11,7 +11,7 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import pab.par.dom.springbatchsample.service.data.repository.EnabledStudentRepository;
+import pab.par.dom.springbatchsample.service.logic.api.Studentmanagement;
 
 /**
  * Step class to clean enabled_student table
@@ -19,10 +19,10 @@ import pab.par.dom.springbatchsample.service.data.repository.EnabledStudentRepos
  */
 public class EnabledStudentCleaner implements Tasklet, StepExecutionListener {
 
-  private static final Logger log = LoggerFactory.getLogger(StudentItemWriter.class);
+  private static final Logger log = LoggerFactory.getLogger(EnabledStudentCleaner.class);
 
   @Autowired
-  private EnabledStudentRepository enabledStudent;
+  private Studentmanagement studentmanagement;
 
   @Override
   public void beforeStep(StepExecution stepExecution) {
@@ -35,7 +35,7 @@ public class EnabledStudentCleaner implements Tasklet, StepExecutionListener {
   public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 
     log.debug("Executing the cleaning of EnabledStudent table...");
-    this.enabledStudent.deleteAll();
+    this.studentmanagement.clearEnabledStudents();
     return RepeatStatus.FINISHED;
   }
 
