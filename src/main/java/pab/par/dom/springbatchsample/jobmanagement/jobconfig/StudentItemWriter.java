@@ -21,7 +21,8 @@ import pab.par.dom.springbatchsample.studentmanagement.dataaccess.repository.Ena
  * Student Item Writer
  *
  */
-public class StudentItemWriter implements ItemWriter<Student>, StepExecutionListener, ItemWriteListener<Student> {
+public class StudentItemWriter
+    implements ItemWriter<EnabledStudent>, StepExecutionListener, ItemWriteListener<Student> {
 
   private static final Logger log = LoggerFactory.getLogger(StudentItemWriter.class);
 
@@ -44,15 +45,21 @@ public class StudentItemWriter implements ItemWriter<Student>, StepExecutionList
     cleanTable();
   }
 
+  // @Override
+  // public void write(List<? extends EnabledStudent> items) throws Exception {
+  //
+  // this.mapper = new ModelMapper();
+  //
+  // for (Student item : items) {
+  // this.enabledStudent.save(this.mapper.map(item, EnabledStudent.class));
+  // }
+  //
+  // }
+
   @Override
-  public void write(List<? extends Student> items) throws Exception {
+  public void write(List<? extends EnabledStudent> items) throws Exception {
 
-    this.mapper = new ModelMapper();
-
-    for (Student item : items) {
-      this.enabledStudent.save(this.mapper.map(item, EnabledStudent.class));
-    }
-
+    items.forEach(it -> this.enabledStudent.save(it));
   }
 
   private void cleanTable() {

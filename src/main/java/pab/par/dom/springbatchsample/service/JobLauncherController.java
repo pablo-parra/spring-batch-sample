@@ -1,6 +1,7 @@
 package pab.par.dom.springbatchsample.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import pab.par.dom.springbatchsample.jobmanagement.api.Jobmanagement;
 import pab.par.dom.springbatchsample.studentmanagement.dataaccess.dto.JobInfo;
+import pab.par.dom.springbatchsample.studentmanagement.dataaccess.entity.EnabledStudent;
+import pab.par.dom.springbatchsample.studentmanagement.logic.api.Studentmanagement;
 
 /**
  * REST controller to start the batch job
@@ -29,6 +32,9 @@ public class JobLauncherController {
 
   @Autowired
   private Jobmanagement jobmanagement;
+
+  @Autowired
+  private Studentmanagement studentmanagement;
 
   /**
    * @return
@@ -60,35 +66,14 @@ public class JobLauncherController {
     return new ResponseEntity<>(new JobInfo("1234", new Date()), HttpStatus.ACCEPTED);
   }
 
-  // TODO job to return the values inserted in the enabled_student table
-  // @RequestMapping(value = "/enabledstudents", method = RequestMethod.GET)
-  // public ResponseEntity<DownloadInfoDto> startJobByName() throws JobExecutionAlreadyRunningException,
-  // JobRestartException, JobInstanceAlreadyCompleteException, JobParametersInvalidException {
-  //
-  // this.jobLauncher.run(this.job, new JobParametersBuilder().addLong("unique", System.nanoTime()).toJobParameters());
-  // return new ResponseEntity<>(new DownloadInfoDto("http://asdfasdf", "300s"), HttpStatus.ACCEPTED);
-  // }
+  /**
+   * @return
+   */
+  @RequestMapping(value = "/enabledstudents", method = RequestMethod.GET)
+  public ResponseEntity<List<EnabledStudent>> getEnabledStudents() {
 
-  // TODO launch a job by its name
-  // /**
-  // * End point to start a batch job
-  // *
-  // * @return the URL and Estimated Time of Arrival to get the result of the job
-  // * @throws JobParametersInvalidException
-  // * @throws JobInstanceAlreadyCompleteException
-  // * @throws JobRestartException
-  // * @throws JobExecutionAlreadyRunningException
-  // */
-  // @RequestMapping(value = "/startjob/{name}", method = RequestMethod.GET)
-  // public ResponseEntity<DownloadInfoDto> startJobByName(@PathVariable("name") String name)
-  // throws JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException,
-  // JobParametersInvalidException {
-  //
-  // log.info("Name: " + name);
-  //
-  // // this.jobLauncher.run(this.job, new JobParameters());
-  // this.jobLauncher.run(this.job, new JobParametersBuilder().addLong("unique", System.nanoTime()).toJobParameters());
-  // return new ResponseEntity<>(new DownloadInfoDto("http://asdfasdf", "300s"), HttpStatus.ACCEPTED);
-  // }
+    return new ResponseEntity<>(this.studentmanagement.getAllEnabledStudents(), HttpStatus.OK);
+
+  }
 
 }

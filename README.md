@@ -3,12 +3,16 @@ Sample project with a simple Spring Batch implementation.
 
 The project contains two jobs, related to different endpoints. One Job is synchronous and the other asynchronous, although both use the same reader, processor and writer.
 
-The steps used by the jobs read the students from a _student_ table, discard the ones that have the 'enabled' attribute to false, and finally the remaining students are written to a different table _enabled__student_.
+The steps used by the jobs read the students from several tables, discard the ones that have the 'enabled' attribute to false, and finally the remaining students are written to a denormalized table _enabled__student_.
 
 Both jobs can be launched using dedicated rest endpoints:
 
 * `/startjob` : to start the sync one.
 * `/startjobasync` : to start the async one.
+
+The enabled students are available through the service:
+
+* `/enabledstudents`
 
 ## DB with docker
 

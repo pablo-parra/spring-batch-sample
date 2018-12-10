@@ -60,7 +60,7 @@ public class SpringBatchSampleAppTests {
   }
 
   @Test
-  public void myJobTest() throws Exception {
+  public void enabledStudentsTest() throws Exception {
 
     List<EnabledStudent> enabledStudentsBefore = this.studentmanagement.getAllEnabledStudents();
 
@@ -78,7 +78,7 @@ public class SpringBatchSampleAppTests {
   }
 
   @Test
-  public void myJobTestAsync() throws Exception {
+  public void enabledStudentsTestAsync() throws Exception {
 
     List<EnabledStudent> enabledStudentsBefore = this.studentmanagement.getAllEnabledStudents();
 

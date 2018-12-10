@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 
+import pab.par.dom.springbatchsample.studentmanagement.dataaccess.entity.EnabledStudent;
 import pab.par.dom.springbatchsample.studentmanagement.dataaccess.entity.Student;
 
 /**
@@ -73,17 +74,17 @@ public class JobConfiguration {
   public Step chunkStep() {
 
     log.info("Configuring chunkStep...");
-    return this.stepBuilderFactory.get("chunkStep").<Student, Student> chunk(3).reader(reader()).processor(processor())
-        .writer(writer()).build();
+    return this.stepBuilderFactory.get("chunkStep").<Student, EnabledStudent> chunk(3).reader(reader())
+        .processor(processor()).writer(writer()).build();
   }
 
   @Bean
-  protected Step processStudent(ItemReader<Student> reader, ItemProcessor<Student, Student> processor,
-      ItemWriter<Student> writer) {
+  protected Step processStudent(ItemReader<Student> reader, ItemProcessor<Student, EnabledStudent> processor,
+      ItemWriter<EnabledStudent> writer) {
 
     log.info("Configuring processStudent step...");
-    return this.stepBuilderFactory.get("processStudent").<Student, Student> chunk(3).reader(reader).processor(processor)
-        .writer(writer).build();
+    return this.stepBuilderFactory.get("processStudent").<Student, EnabledStudent> chunk(3).reader(reader)
+        .processor(processor).writer(writer).build();
   }
 
   @Bean
@@ -95,16 +96,16 @@ public class JobConfiguration {
 
   @Bean
   @StepScope
-  public ItemProcessor<Student, Student> processor() {
+  public ItemProcessor<Student, EnabledStudent> processor() {
 
-    final CompositeItemProcessor<Student, Student> processor = new CompositeItemProcessor<>();
+    final CompositeItemProcessor<Student, EnabledStudent> processor = new CompositeItemProcessor<>();
     processor.setDelegates(Arrays.asList(new EnabledFilterProcessor()));
     return processor;
   }
 
   @Bean
   @StepScope
-  public ItemWriter<Student> writer() {
+  public ItemWriter<EnabledStudent> writer() {
 
     return new StudentItemWriter();
   }

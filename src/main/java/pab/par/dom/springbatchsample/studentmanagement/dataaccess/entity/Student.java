@@ -1,7 +1,10 @@
 package pab.par.dom.springbatchsample.studentmanagement.dataaccess.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -16,13 +19,13 @@ public class Student {
   @Id
   private Integer id;
 
-  @NotNull
-  private String email;
+  @OneToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "person_id")
+  private PersonalInfo person;
 
   @NotNull
-  private String name;
+  private String degree;
 
-  @NotNull
   private Boolean enabled;
 
   /**
@@ -42,35 +45,35 @@ public class Student {
   }
 
   /**
-   * @return email
+   * @return person
    */
-  public String getEmail() {
+  public PersonalInfo getPerson() {
 
-    return this.email;
+    return this.person;
   }
 
   /**
-   * @param email new value of {@link #getEmail}.
+   * @param person new value of {@link #getPerson}.
    */
-  public void setEmail(String email) {
+  public void setPerson(PersonalInfo person) {
 
-    this.email = email;
+    this.person = person;
   }
 
   /**
-   * @return name
+   * @return degree
    */
-  public String getName() {
+  public String getDegree() {
 
-    return this.name;
+    return this.degree;
   }
 
   /**
-   * @param name new value of {@link #getName}.
+   * @param degree new value of {@link #getDegree}.
    */
-  public void setName(String name) {
+  public void setDegree(String degree) {
 
-    this.name = name;
+    this.degree = degree;
   }
 
   /**
