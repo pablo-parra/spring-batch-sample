@@ -16,6 +16,7 @@ import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -39,6 +40,9 @@ public class JobConfiguration {
 
   @Autowired
   private StepBuilderFactory stepBuilderFactory;
+
+  @Value("${job.chunk-size}")
+  private int chunkSize;
 
   @Bean(name = "enabledStudentsJob")
   public Job enabledStudentsJob() {
@@ -74,7 +78,7 @@ public class JobConfiguration {
   public Step chunkStep() {
 
     log.info("Configuring chunkStep...");
-    return this.stepBuilderFactory.get("chunkStep").<Student, EnabledStudent> chunk(3).reader(reader())
+    return this.stepBuilderFactory.get("chunkStep").<Student, EnabledStudent> chunk(this.chunkSize).reader(reader())
         .processor(processor()).writer(writer()).build();
   }
 
@@ -83,7 +87,7 @@ public class JobConfiguration {
       ItemWriter<EnabledStudent> writer) {
 
     log.info("Configuring processStudent step...");
-    return this.stepBuilderFactory.get("processStudent").<Student, EnabledStudent> chunk(3).reader(reader)
+    return this.stepBuilderFactory.get("processStudent").<Student, EnabledStudent> chunk(this.chunkSize).reader(reader)
         .processor(processor).writer(writer).build();
   }
 
