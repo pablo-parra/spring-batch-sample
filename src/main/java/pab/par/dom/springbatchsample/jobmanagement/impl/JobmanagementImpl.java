@@ -8,6 +8,7 @@ import org.springframework.batch.core.repository.JobExecutionAlreadyRunningExcep
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +25,12 @@ public class JobmanagementImpl implements Jobmanagement {
   JobLauncher jobLauncher;
 
   @Autowired
+  @Qualifier("enabledStudentsJob")
   Job job;
+
+  @Autowired
+  @Qualifier("enabledStudentsJobAsync")
+  Job jobAsync;
 
   @Override
   public void startJob() throws JobExecutionAlreadyRunningException, JobRestartException,
@@ -39,7 +45,8 @@ public class JobmanagementImpl implements Jobmanagement {
   public void startJobAsync() throws JobExecutionAlreadyRunningException, JobRestartException,
       JobInstanceAlreadyCompleteException, JobParametersInvalidException {
 
-    this.jobLauncher.run(this.job, new JobParametersBuilder().addLong("unique", System.nanoTime()).toJobParameters());
+    this.jobLauncher.run(this.jobAsync,
+        new JobParametersBuilder().addLong("unique", System.nanoTime()).toJobParameters());
 
   }
 

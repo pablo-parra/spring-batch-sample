@@ -10,11 +10,6 @@ CREATE TABLE enabled_student(
   name varchar(200) not null
 );
 
-CREATE TABLE register(
-  id int AUTO_INCREMENT PRIMARY KEY,
-  job_date datetime not null,
-  enabled_students varchar(200) not null
-);
 
 INSERT INTO student (email, name, enabled) VALUES ('aaa@aaa.com', 'aaa', false);
 INSERT INTO student (email, name, enabled) VALUES ('bbb@bbb.com', 'bbb', true);

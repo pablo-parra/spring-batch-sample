@@ -39,12 +39,20 @@ public class JobConfiguration {
   @Autowired
   private StepBuilderFactory stepBuilderFactory;
 
-  @Bean
-  public Job myJob() {
+  @Bean(name = "enabledStudentsJob")
+  public Job enabledStudentsJob() {
 
-    log.info("Configuring myJob...");
-    return this.jobBuilderFactory.get("myJob").start(cleanDb()).next(processStudent(reader(), processor(), writer()))
-        .build();
+    log.info("Configuring enabledStudentsJob...");
+    return this.jobBuilderFactory.get("enabledStudentsJob").start(cleanDb())
+        .next(processStudent(reader(), processor(), writer())).build();
+  }
+
+  @Bean(name = "enabledStudentsJobAsync")
+  public Job enabledStudentsJobAsync() {
+
+    log.info("Configuring enabledStudentsJobAsync...");
+    return this.jobBuilderFactory.get("enabledStudentsJobAsync").start(cleanDb())
+        .next(processStudent(reader(), processor(), writer())).build();
   }
 
   @Bean

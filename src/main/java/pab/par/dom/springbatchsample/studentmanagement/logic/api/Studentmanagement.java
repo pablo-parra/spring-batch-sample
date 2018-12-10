@@ -11,8 +11,6 @@ import pab.par.dom.springbatchsample.studentmanagement.dataaccess.entity.Student
  */
 public interface Studentmanagement {
 
-  void createRegistration();
-
   List<Student> getAll();
 
   List<EnabledStudent> getAllEnabledStudents();
