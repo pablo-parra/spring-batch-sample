@@ -48,8 +48,7 @@ public class StudentItemReader implements ItemReader<Student>, StepExecutionList
 
   private List<Student> students() {
 
-    List<Student> students = this.studentmanagement.getAll();
-    return students;
+    return this.studentmanagement.getAll();
   }
 
   @Override

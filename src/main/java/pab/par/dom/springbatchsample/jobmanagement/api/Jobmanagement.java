@@ -11,10 +11,10 @@ import org.springframework.batch.core.repository.JobRestartException;
  */
 public interface Jobmanagement {
 
-  void startJob() throws JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException,
-      JobParametersInvalidException;
+  void startJob(String jobProcessId) throws JobExecutionAlreadyRunningException, JobRestartException,
+      JobInstanceAlreadyCompleteException, JobParametersInvalidException;
 
-  void startJobAsync() throws JobExecutionAlreadyRunningException, JobRestartException,
+  void startJobAsync(String jobProcessId) throws JobExecutionAlreadyRunningException, JobRestartException,
       JobInstanceAlreadyCompleteException, JobParametersInvalidException;
 
 }

@@ -33,20 +33,21 @@ public class JobmanagementImpl implements Jobmanagement {
   Job jobAsync;
 
   @Override
-  public void startJob() throws JobExecutionAlreadyRunningException, JobRestartException,
+  public void startJob(String jobProcessId) throws JobExecutionAlreadyRunningException, JobRestartException,
       JobInstanceAlreadyCompleteException, JobParametersInvalidException {
 
-    this.jobLauncher.run(this.job, new JobParametersBuilder().addLong("unique", System.nanoTime()).toJobParameters());
+    this.jobLauncher.run(this.job,
+        new JobParametersBuilder().addString("jobProcessId", jobProcessId).toJobParameters());
 
   }
 
   @Override
   @Async
-  public void startJobAsync() throws JobExecutionAlreadyRunningException, JobRestartException,
+  public void startJobAsync(String jobProcessId) throws JobExecutionAlreadyRunningException, JobRestartException,
       JobInstanceAlreadyCompleteException, JobParametersInvalidException {
 
     this.jobLauncher.run(this.jobAsync,
-        new JobParametersBuilder().addLong("unique", System.nanoTime()).toJobParameters());
+        new JobParametersBuilder().addString("jobProcessId", jobProcessId).toJobParameters());
 
   }
 

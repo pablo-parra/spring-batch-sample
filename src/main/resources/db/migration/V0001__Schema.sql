@@ -34,6 +34,7 @@ CREATE TABLE student(
 
 CREATE TABLE enabled_student(
   id int AUTO_INCREMENT PRIMARY KEY,
+  jobId varchar(100) NOT NULL,
   name varchar(200) not null,
   degree varchar(200) not null,
   email varchar(100) not null,

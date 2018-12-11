@@ -2,14 +2,12 @@ package pab.par.dom.springbatchsample.jobmanagement.jobconfig;
 
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.ItemWriteListener;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
-import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,42 +27,17 @@ public class StudentItemWriter
   @Autowired
   private EnabledStudentRepository enabledStudent;
 
-  private ModelMapper mapper;
-
   @Override
   public void beforeStep(final StepExecution stepExecution) {
 
-    cleanTable();
     log.debug("StudentItemWriter initialized.");
 
   }
-
-  @BeforeStep
-  public void asdf() {
-
-    cleanTable();
-  }
-
-  // @Override
-  // public void write(List<? extends EnabledStudent> items) throws Exception {
-  //
-  // this.mapper = new ModelMapper();
-  //
-  // for (Student item : items) {
-  // this.enabledStudent.save(this.mapper.map(item, EnabledStudent.class));
-  // }
-  //
-  // }
 
   @Override
   public void write(List<? extends EnabledStudent> items) throws Exception {
 
     items.forEach(it -> this.enabledStudent.save(it));
-  }
-
-  private void cleanTable() {
-
-    this.enabledStudent.deleteAll();
   }
 
   @Override
@@ -77,7 +50,6 @@ public class StudentItemWriter
   @Override
   public void beforeWrite(List<? extends Student> items) {
 
-    cleanTable();
     log.debug("StudentItemWriter initialized.");
 
   }
@@ -92,7 +64,7 @@ public class StudentItemWriter
   @Override
   public void onWriteError(Exception exception, List<? extends Student> items) {
 
-    // TODO Auto-generated method stub
+    log.error("Error writing item: " + exception.getMessage());
 
   }
 

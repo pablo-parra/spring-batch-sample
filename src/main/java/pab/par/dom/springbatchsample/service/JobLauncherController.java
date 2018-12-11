@@ -2,12 +2,15 @@ package pab.par.dom.springbatchsample.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
+import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +39,9 @@ public class JobLauncherController {
   @Autowired
   private Studentmanagement studentmanagement;
 
+  @Autowired
+  private JobRepository jobRepository;
+
   /**
    * @return
    * @throws JobExecutionAlreadyRunningException
@@ -47,8 +53,10 @@ public class JobLauncherController {
   public ResponseEntity<JobInfo> startJob() throws JobExecutionAlreadyRunningException, JobRestartException,
       JobInstanceAlreadyCompleteException, JobParametersInvalidException {
 
-    this.jobmanagement.startJob();
-    return new ResponseEntity<>(new JobInfo("foo", new Date()), HttpStatus.ACCEPTED);
+    // Long jobProcessId = System.nanoTime();
+    UUID jobUUID = UUID.randomUUID();
+    this.jobmanagement.startJob(jobUUID.toString());
+    return new ResponseEntity<>(new JobInfo(jobUUID.toString(), BatchStatus.STARTING, new Date()), HttpStatus.ACCEPTED);
   }
 
   /**
@@ -62,8 +70,10 @@ public class JobLauncherController {
   public ResponseEntity<JobInfo> startJobAsync() throws JobExecutionAlreadyRunningException, JobRestartException,
       JobInstanceAlreadyCompleteException, JobParametersInvalidException {
 
-    this.jobmanagement.startJobAsync();
-    return new ResponseEntity<>(new JobInfo("1234", new Date()), HttpStatus.ACCEPTED);
+    // Long jobProcessId = System.nanoTime();
+    UUID jobUUID = UUID.randomUUID();
+    this.jobmanagement.startJobAsync(jobUUID.toString());
+    return new ResponseEntity<>(new JobInfo(jobUUID.toString(), BatchStatus.STARTING, new Date()), HttpStatus.ACCEPTED);
   }
 
   /**
@@ -75,5 +85,13 @@ public class JobLauncherController {
     return new ResponseEntity<>(this.studentmanagement.getAllEnabledStudents(), HttpStatus.OK);
 
   }
+
+  // @RequestMapping(value = "/status/{jobId}", method = RequestMethod.GET)
+  // public ResponseEntity<List<EnabledStudent>> getJobStatus(@PathVariable String jobId) {
+  //
+  // this.jobRepository.
+  // return new ResponseEntity<>(this.studentmanagement.getAllEnabledStudents(), HttpStatus.OK);
+  //
+  // }
 
 }

@@ -21,6 +21,9 @@ public class EnabledStudent {
   private Integer id;
 
   @NotNull
+  private String jobId;
+
+  @NotNull
   private String name;
 
   @NotNull
@@ -49,6 +52,22 @@ public class EnabledStudent {
   public void setId(Integer id) {
 
     this.id = id;
+  }
+
+  /**
+   * @return jobId
+   */
+  public String getJobId() {
+
+    return this.jobId;
+  }
+
+  /**
+   * @param jobId new value of {@link #getJobId()}
+   */
+  public void setJobId(String jobId) {
+
+    this.jobId = jobId;
   }
 
   /**

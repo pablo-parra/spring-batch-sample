@@ -6,6 +6,7 @@ import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.beans.factory.annotation.Value;
 
 import pab.par.dom.springbatchsample.studentmanagement.dataaccess.entity.EnabledStudent;
 import pab.par.dom.springbatchsample.studentmanagement.dataaccess.entity.Student;
@@ -18,6 +19,9 @@ public class EnabledFilterProcessor implements ItemProcessor<Student, EnabledStu
 
   private static final Logger log = LoggerFactory.getLogger(EnabledFilterProcessor.class);
 
+  @Value("#{jobParameters[jobProcessId]}")
+  private String jobProcessId;
+
   @Override
   public void beforeStep(StepExecution stepExecution) {
 
@@ -25,21 +29,12 @@ public class EnabledFilterProcessor implements ItemProcessor<Student, EnabledStu
 
   }
 
-  // @Override
-  // public Student process(Student item) throws Exception {
-  //
-  // if (item.getEnabled()) {
-  // return item;
-  // }
-  // return null;
-  // // return item.getEnabled() ? item : null;
-  // }
-
   @Override
   public EnabledStudent process(Student item) throws Exception {
 
     if (item.getEnabled()) {
       EnabledStudent enabledStudent = new EnabledStudent();
+      enabledStudent.setJobId(this.jobProcessId);
       enabledStudent.setName(item.getPerson().getFirstName().concat(" ").concat(item.getPerson().getLastName()));
       enabledStudent.setDegree(item.getDegree());
       enabledStudent.setEmail(item.getPerson().getContact().getEmail());
@@ -48,7 +43,7 @@ public class EnabledFilterProcessor implements ItemProcessor<Student, EnabledStu
       return enabledStudent;
     }
     return null;
-    // return item.getEnabled() ? item : null;
+
   }
 
   @Override

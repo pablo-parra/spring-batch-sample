@@ -2,6 +2,8 @@ package pab.par.dom.springbatchsample.studentmanagement.dataaccess.dto;
 
 import java.util.Date;
 
+import org.springframework.batch.core.BatchStatus;
+
 /**
  * Class to wrap the response info
  *
@@ -9,6 +11,8 @@ import java.util.Date;
 public class JobInfo {
 
   private String jobId;
+
+  private BatchStatus status;
 
   private Date launched;
 
@@ -26,9 +30,10 @@ public class JobInfo {
    * @param jobId the downloadURL value
    * @param launched the ETA value
    */
-  public JobInfo(String jobId, Date launched) {
+  public JobInfo(String jobId, BatchStatus status, Date launched) {
 
     this.jobId = jobId;
+    this.status = status;
     this.launched = launched;
   }
 
@@ -46,6 +51,22 @@ public class JobInfo {
   public void setJobId(String jobId) {
 
     this.jobId = jobId;
+  }
+
+  /**
+   * @return status
+   */
+  public BatchStatus getStatus() {
+
+    return this.status;
+  }
+
+  /**
+   * @param status new value of {@link #getStatus}.
+   */
+  public void setStatus(BatchStatus status) {
+
+    this.status = status;
   }
 
   /**

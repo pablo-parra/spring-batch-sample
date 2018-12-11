@@ -1,7 +1,5 @@
 package pab.par.dom.springbatchsample.jobmanagement.jobconfig;
 
-import java.util.Arrays;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -14,7 +12,6 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -102,9 +99,7 @@ public class JobConfiguration {
   @StepScope
   public ItemProcessor<Student, EnabledStudent> processor() {
 
-    final CompositeItemProcessor<Student, EnabledStudent> processor = new CompositeItemProcessor<>();
-    processor.setDelegates(Arrays.asList(new EnabledFilterProcessor()));
-    return processor;
+    return new EnabledFilterProcessor();
   }
 
   @Bean
