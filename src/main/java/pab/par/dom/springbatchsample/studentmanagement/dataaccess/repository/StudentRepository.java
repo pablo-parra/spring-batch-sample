@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import pab.par.dom.springbatchsample.studentmanagement.dataaccess.entity.Student;
 
 /**
- * Student Jpa Repository
+ * Student Repository
  *
  */
 public interface StudentRepository extends JpaRepository<Student, Integer> {

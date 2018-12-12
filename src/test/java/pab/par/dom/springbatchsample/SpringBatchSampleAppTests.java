@@ -6,6 +6,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.List;
 
+import javax.batch.runtime.BatchStatus;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -71,10 +73,18 @@ public class SpringBatchSampleAppTests {
     JobInfo response = this.gson.fromJson(result.getResponse().getContentAsString(), JobInfo.class);
 
     assertThat(response).isNotNull();
+    assertThat(response.getStatus()).isEqualToIgnoringCase(BatchStatus.STARTING.toString());
 
     List<EnabledStudent> enabledStudentsAfter = this.studentmanagement.getAllEnabledStudents();
 
     assertThat(enabledStudentsAfter.size()).isEqualTo(this.studentmanagement.getAllStudentsByEnabledStatus().size());
+
+    // Checking the status, that should be 'COMPLETED'
+    MvcResult status = httpGet("/status/".concat(response.getJobId()), new LinkedMultiValueMap<>())
+        .andExpect(status().isOk()).andReturn();
+    JobInfo statusResponse = this.gson.fromJson(status.getResponse().getContentAsString(), JobInfo.class);
+    assertThat(statusResponse).isNotNull();
+    assertThat(statusResponse.getStatus()).isEqualToIgnoringCase(BatchStatus.COMPLETED.toString());
   }
 
   @Test

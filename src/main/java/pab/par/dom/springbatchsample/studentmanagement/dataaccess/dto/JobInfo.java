@@ -1,8 +1,6 @@
 package pab.par.dom.springbatchsample.studentmanagement.dataaccess.dto;
 
-import java.util.Date;
-
-import org.springframework.batch.core.BatchStatus;
+import java.sql.Timestamp;
 
 /**
  * Class to wrap the response info
@@ -12,9 +10,11 @@ public class JobInfo {
 
   private String jobId;
 
-  private BatchStatus status;
+  private String status;
 
-  private Date launched;
+  private Timestamp startTime;
+
+  private Timestamp endTime;
 
   /**
    *
@@ -28,13 +28,16 @@ public class JobInfo {
    * The constructor.
    *
    * @param jobId the downloadURL value
-   * @param launched the ETA value
+   * @param status the status
+   * @param startTime the startTime value
+   * @param endTime the endTime
    */
-  public JobInfo(String jobId, BatchStatus status, Date launched) {
+  public JobInfo(String jobId, String status, Timestamp startTime, Timestamp endTime) {
 
     this.jobId = jobId;
     this.status = status;
-    this.launched = launched;
+    this.startTime = startTime;
+    this.endTime = endTime;
   }
 
   /**
@@ -56,7 +59,7 @@ public class JobInfo {
   /**
    * @return status
    */
-  public BatchStatus getStatus() {
+  public String getStatus() {
 
     return this.status;
   }
@@ -64,25 +67,41 @@ public class JobInfo {
   /**
    * @param status new value of {@link #getStatus}.
    */
-  public void setStatus(BatchStatus status) {
+  public void setStatus(String status) {
 
     this.status = status;
   }
 
   /**
-   * @return launched
+   * @return startTime
    */
-  public Date getLaunched() {
+  public Timestamp getStartTime() {
 
-    return this.launched;
+    return this.startTime;
   }
 
   /**
-   * @param launched new value of {@link #getLaunched}.
+   * @param startTime new value of {@link #getStartTime}.
    */
-  public void setLaunched(Date launched) {
+  public void setStartTime(Timestamp startTime) {
 
-    this.launched = launched;
+    this.startTime = startTime;
+  }
+
+  /**
+   * @return endTime
+   */
+  public Timestamp getEndTime() {
+
+    return this.endTime;
+  }
+
+  /**
+   * @param endTime new value of {@link #getEndTime}.
+   */
+  public void setEndTime(Timestamp endTime) {
+
+    this.endTime = endTime;
   }
 
 }
